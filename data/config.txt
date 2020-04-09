@@ -1,0 +1,1 @@
+{"ssid":"PUTIN UTELE","password":"0674788273","ssidAP":"AQUA_ROOM_AP","passwordAP":"","timezone":2,"summertime":1,"ntpServerName":"ntp3.time.in.ua"}

@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap&subset=cyrillic');
+* { margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;}
+body { display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    flex-wrap: wrap;
+    background: #010615;}
+.box { position: relative;
+    width: 300px;
+    height: 400px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    background: #060c21;
+    margin: 40px;
+    border-radius: 4px;}
+.box:before { content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: #fff;
+    z-index: -1;
+    border-radius: 4px;}
+.box:after { content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: #fff;
+    z-index: -1;
+    filter: blur(40px);
+    border-radius: 4px;}
+.box:before,
+.box:after { background: linear-gradient(235deg, #010615, #010615, #00bcd4);}
+.box .glass { position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    display: block;
+    background: rgba(255, 255, 255, 0.1);
+    pointer-events: none;}
+.box .content { padding: 20px;
+    color: #fff;}
+.box img { margin: 50px;
+    width: 50%;}
+.box:hover:before,
+.box:hover:after { background: linear-gradient(235deg, #89ff00, #010615, #010615);}
+.box .content:hover { transform: translateY(-8px);
+    transition: transform .3s ease-in-out;}
