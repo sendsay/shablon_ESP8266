@@ -27,7 +27,7 @@ byte amountNotStarts = 0;                   // Счет НЕ подключен�
 //time
 long localEpoc = 0;
 long localMillisAtUpdate = 0;
-int hour=22, minute=40, second=42, month=4, day=6, dayOfWeek=6, year=2018;
+int hour=22, minute=20, second=0, month=4, day=6, dayOfWeek=6, year=2018;
 unsigned int localPort = 2390;
 bool statusUpdateNtpTime = 0;             // Если не 0, то обновление было удачным
 // float timeZone = 2.0;                     // Временная зона для часов
@@ -42,6 +42,7 @@ int summertime = 1;                                     // летнее врем
 #define LEAP_YEAR(Y) (((1970+Y)>0) && !((1970+Y)%4) && (((1970+Y)%100)||!((1970+Y)%400)))   // Високосні літа
 static const uint8_t monthDays[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};        // Кількість днів у місяцях
 int secFr, lastSecond, lastMinute;                    // Работа с временем
+int j = 0;
 
 // Config structure
 struct Config {

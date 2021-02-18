@@ -149,16 +149,12 @@ void loop() {
 
 
 // CHECK WIFI
-    if ((second > 30 && second < 38) && (WiFi.status() != WL_CONNECTED || !WIFI_connected)) {
+    if ((minute % 5 == 0) && (second == 0) && (secFr == 0) && (WiFi.status() != WL_CONNECTED || !WIFI_connected)) {
         WIFI_connected = false;
 
         if (secFr == 0) DEBUG("============> Check WIFI connect!!!");
-
-        WiFi.disconnect();
-        if(minute % 5 == 1) {
-            wifiConnect();
-            if(WiFi.status() == WL_CONNECTED) WIFI_connected = true;
-        }
+        
+        wifiConnect();
     }
 
 // Get time every hour from server
@@ -207,6 +203,7 @@ void wifiConnect() {
     WiFi.disconnect();
     WiFi.mode(WIFI_STA);
     WiFi.begin(config.ssid, config.password);
+
     for (int i = 1; i < 21; i++)
     {
         if (WiFi.status() == WL_CONNECTED)
@@ -222,11 +219,12 @@ void wifiConnect() {
             // }
             firstStart = 1;
             amountNotStarts = 0;
+            WIFI_connected = true;
             return;
         }
         DEBUG(".");
-        if (!firstStart)
-        {
+        // if (!firstStart)
+        // {
             int j = 0;
             while (j < 500)
             {
@@ -235,30 +233,29 @@ void wifiConnect() {
                 j++;
                 delay(2);
             }
-        }
+        // }
     }
-
+    
     WiFi.disconnect();
     DEBUG(" Not connected!!!");
     amountNotStarts++;
     DEBUG("Amount of the unsuccessful connecting = ");
     DEBUG(amountNotStarts);
-    if (amountNotStarts > 21)
+
+    if (amountNotStarts > 6)
         ESP.reset();
-    if (!firstStart)
-    {
-        WiFi.mode(WIFI_AP);
-        WiFi.softAPConfig(apIP, apIP, IPAddress(255, 255, 255, 0));
-        WiFi.softAP(config.ssidAP, config.passwordAP);
-        printTime();
-        DEBUG("Start AP mode!!!");
-        DEBUG("Wifi AP IP : ");
-        DEBUG(WiFi.softAPIP());
 
-        // updateTime();
+    WiFi.disconnect();
 
-        firstStart = 1;
-    }
+    WiFi.mode(WIFI_AP);
+    WiFi.softAPConfig(apIP, apIP, IPAddress(255, 255, 255, 0));
+    WiFi.softAP(config.ssidAP, config.passwordAP);
+    printTime();    
+    DEBUG("Start AP mode!!!");
+    DEBUG("Wifi AP IP : ");
+    DEBUG(WiFi.softAPIP());
+
+    firstStart = 1;
 }
 
 /*
